@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Header } from '@/components/Header';
 import { ImageUploader } from '@/components/ImageUploader';
+import { ThreadsPostCard } from '@/components/ThreadsPostCard';
 import { ImageData, ViewMode } from '@/types';
 
 export default function Home() {
@@ -63,11 +64,7 @@ export default function Home() {
                   viewMode === 'mobile' ? 'max-w-[480px]' : 'max-w-full'
                 }`}
               >
-                <div className="flex min-h-[400px] items-center justify-center rounded-lg border bg-muted/50">
-                  <p className="text-muted-foreground">
-                    Threads投稿プレビュー（次のフェーズで実装）
-                  </p>
-                </div>
+                <ThreadsPostCard images={images} />
               </div>
             </div>
           </div>
