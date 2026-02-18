@@ -7,123 +7,71 @@ interface ImageGridProps {
   images: ImageData[];
 }
 
+/**
+ * Threads風の横スクロールカルーセル
+ * - 高さ200px固定
+ * - 縦長: 150px幅、横長: 266px幅
+ * - border-radius: 12px
+ * - 画像間: 6px、最後: 24px
+ */
 export function ImageGrid({ images }: ImageGridProps) {
   if (images.length === 0) return null;
 
-  const renderSingleImage = () => (
-    <div className="relative aspect-square w-full overflow-hidden rounded-lg">
-      <Image
-        src={images[0].url}
-        alt="Upload 1"
-        fill
-        className="object-cover"
-        sizes="(max-width: 768px) 100vw, 50vw"
-      />
-    </div>
-  );
+  // 画像の縦横比から幅を決定（Threadsの仕様に基づく）
+  const getImageWidth = (image: ImageData): number => {
+    const aspectRatio = image.width / image.height;
 
-  const renderTwoImages = () => (
-    <div className="grid grid-cols-2 gap-0.5 overflow-hidden rounded-lg">
-      {images.slice(0, 2).map((image, index) => (
-        <div key={image.id} className="relative aspect-square">
-          <Image
-            src={image.url}
-            alt={`Upload ${index + 1}`}
-            fill
-            className="object-cover"
-            sizes="(max-width: 768px) 50vw, 25vw"
-          />
-        </div>
-      ))}
-    </div>
-  );
+    // 縦長 (portrait, ≥1:1.33) → 150px
+    if (aspectRatio <= 0.75) {
+      return 150;
+    }
+    // 横長 (landscape, ≤1:0.75) → 266px
+    if (aspectRatio >= 1.33) {
+      return 266;
+    }
+    // 正方形に近い場合 → 200px
+    return 200;
+  };
 
-  const renderThreeImages = () => (
-    <div className="grid grid-cols-2 gap-0.5 overflow-hidden rounded-lg">
-      {/* 左側: 1枚目（縦長、2行分） */}
-      <div className="relative row-span-2 aspect-square">
-        <Image
-          src={images[0].url}
-          alt="Upload 1"
-          fill
-          className="object-cover"
-          sizes="(max-width: 768px) 50vw, 25vw"
-        />
-      </div>
-      {/* 右側: 2-3枚目（正方形、上下） */}
-      {images.slice(1, 3).map((image, index) => (
-        <div key={image.id} className="relative aspect-square">
-          <Image
-            src={image.url}
-            alt={`Upload ${index + 2}`}
-            fill
-            className="object-cover"
-            sizes="(max-width: 768px) 50vw, 25vw"
-          />
-        </div>
-      ))}
-    </div>
-  );
+  return (
+    <div className="relative -ml-3 md:-ml-0">
+      {/* カルーセルコンテナ */}
+      <div className="flex h-[200px] flex-row flex-nowrap overflow-x-auto scrollbar-hide">
+        {/* 先頭スペーサー（プロフィールアイコン分のオフセット） */}
+        <div className="h-[200px] w-[72px] flex-shrink-0" />
 
-  const renderFourImages = () => (
-    <div className="grid grid-cols-2 gap-0.5 overflow-hidden rounded-lg">
-      {images.slice(0, 4).map((image, index) => (
-        <div key={image.id} className="relative aspect-square">
-          <Image
-            src={image.url}
-            alt={`Upload ${index + 1}`}
-            fill
-            className="object-cover"
-            sizes="(max-width: 768px) 50vw, 25vw"
-          />
-        </div>
-      ))}
-    </div>
-  );
+        {/* 画像アイテム */}
+        {images.map((image, index) => {
+          const imageWidth = getImageWidth(image);
+          const isLast = index === images.length - 1;
 
-  const renderFiveImages = () => (
-    <div className="space-y-0.5 overflow-hidden rounded-lg">
-      {/* 上段: 2枚 */}
-      <div className="grid grid-cols-2 gap-0.5">
-        {images.slice(0, 2).map((image, index) => (
-          <div key={image.id} className="relative aspect-square">
-            <Image
-              src={image.url}
-              alt={`Upload ${index + 1}`}
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 50vw, 25vw"
-            />
-          </div>
-        ))}
-      </div>
-      {/* 下段: 3枚 */}
-      <div className="grid grid-cols-3 gap-0.5">
-        {images.slice(2, 5).map((image, index) => (
-          <div key={image.id} className="relative aspect-square">
-            <Image
-              src={image.url}
-              alt={`Upload ${index + 3}`}
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 33vw, 16vw"
-            />
-          </div>
-        ))}
+          return (
+            <div
+              key={image.id}
+              className="flex-shrink-0"
+              style={{
+                paddingRight: isLast ? '24px' : '6px',
+              }}
+            >
+              <div
+                className="relative overflow-hidden rounded-xl"
+                style={{
+                  width: `${imageWidth}px`,
+                  height: '200px',
+                }}
+              >
+                <Image
+                  src={image.url}
+                  alt={`Upload ${index + 1}`}
+                  fill
+                  className="object-cover"
+                  sizes={`${imageWidth}px`}
+                />
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
-
-  switch (images.length) {
-    case 1:
-      return renderSingleImage();
-    case 2:
-      return renderTwoImages();
-    case 3:
-      return renderThreeImages();
-    case 4:
-      return renderFourImages();
-    default:
-      return renderFiveImages();
-  }
 }
