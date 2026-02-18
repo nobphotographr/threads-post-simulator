@@ -132,17 +132,17 @@ export function ImageUploader({ images, onImagesChange }: ImageUploaderProps) {
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
         onClick={() => fileInputRef.current?.click()}
-        className={`flex h-64 cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed transition-colors ${
+        className={`flex h-48 cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed transition-colors md:h-64 ${
           isDragging
             ? 'border-primary bg-primary/10'
             : 'border-muted-foreground/25 bg-muted/50 hover:border-muted-foreground/50'
         }`}
       >
-        <Upload className="mb-4 h-12 w-12 text-muted-foreground" />
-        <p className="text-sm font-medium text-foreground">
+        <Upload className="mb-3 h-10 w-10 text-muted-foreground md:mb-4 md:h-12 md:w-12" />
+        <p className="text-xs font-medium text-foreground md:text-sm">
           クリックまたはドラッグ＆ドロップ
         </p>
-        <p className="mt-2 text-xs text-muted-foreground">
+        <p className="mt-1.5 text-xs text-muted-foreground md:mt-2">
           JPEG, PNG, WebP（最大10MB）
         </p>
         <p className="mt-1 text-xs text-muted-foreground">

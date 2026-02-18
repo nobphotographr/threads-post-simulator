@@ -13,17 +13,17 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+      <main className="container mx-auto px-4 py-6 md:py-8">
+        <div className="grid grid-cols-1 gap-6 md:gap-8 lg:grid-cols-2">
           {/* 左カラム: 画像アップローダー */}
-          <div className="space-y-6">
-            <div className="rounded-lg border bg-card p-6">
+          <div className="space-y-4 md:space-y-6">
+            <div className="rounded-lg border bg-card p-4 md:p-6">
               <h2 className="mb-4 text-xl font-semibold">画像をアップロード</h2>
               <ImageUploader images={images} onImagesChange={setImages} />
             </div>
 
             {/* コントロールパネル */}
-            <div className="rounded-lg border bg-card p-6">
+            <div className="rounded-lg border bg-card p-4 md:p-6">
               <h3 className="mb-4 text-lg font-semibold">表示設定</h3>
               <div className="space-y-4">
                 <div>
@@ -57,7 +57,7 @@ export default function Home() {
 
           {/* 右カラム: Threads投稿プレビュー */}
           <div className="lg:sticky lg:top-20 lg:h-fit">
-            <div className="rounded-lg border bg-card p-6">
+            <div className="rounded-lg border bg-card p-4 md:p-6">
               <h2 className="mb-4 text-xl font-semibold">プレビュー</h2>
               <div
                 className={`mx-auto ${

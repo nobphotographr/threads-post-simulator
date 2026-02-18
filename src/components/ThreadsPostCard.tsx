@@ -13,9 +13,9 @@ export function ThreadsPostCard({ images }: ThreadsPostCardProps) {
   return (
     <div className="w-full rounded-2xl border bg-card">
       {/* プロフィールヘッダー */}
-      <div className="flex items-center gap-3 p-4 pb-3">
+      <div className="flex items-center gap-2.5 p-3 pb-2.5 md:gap-3 md:p-4 md:pb-3">
         {/* アバター */}
-        <div className="h-9 w-9 overflow-hidden rounded-full bg-gradient-to-br from-purple-400 to-pink-600">
+        <div className="h-8 w-8 overflow-hidden rounded-full bg-gradient-to-br from-purple-400 to-pink-600 md:h-9 md:w-9">
           <div className="flex h-full w-full items-center justify-center text-sm font-semibold text-white">
             {MOCK_USER.displayName.charAt(0)}
           </div>
@@ -56,14 +56,14 @@ export function ThreadsPostCard({ images }: ThreadsPostCardProps) {
 
       {/* 画像グリッド */}
       {images.length > 0 && (
-        <div className="px-4 pb-3">
+        <div className="px-3 pb-2.5 md:px-4 md:pb-3">
           <ImageGrid images={images} />
         </div>
       )}
 
       {/* 画像がない場合のプレースホルダー */}
       {images.length === 0 && (
-        <div className="mx-4 mb-3 flex aspect-square items-center justify-center rounded-lg bg-muted/50">
+        <div className="mx-3 mb-2.5 flex aspect-square items-center justify-center rounded-lg bg-muted/50 md:mx-4 md:mb-3">
           <p className="text-sm text-muted-foreground">
             画像をアップロードしてプレビュー
           </p>
@@ -71,7 +71,7 @@ export function ThreadsPostCard({ images }: ThreadsPostCardProps) {
       )}
 
       {/* アクションボタン */}
-      <div className="flex items-center gap-4 px-4 pb-2">
+      <div className="flex items-center gap-3 px-3 pb-1.5 md:gap-4 md:px-4 md:pb-2">
         <button className="flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground">
           <Heart className="h-5 w-5" />
         </button>
@@ -87,7 +87,7 @@ export function ThreadsPostCard({ images }: ThreadsPostCardProps) {
       </div>
 
       {/* エンゲージメント表示 */}
-      <div className="px-4 pb-4">
+      <div className="px-3 pb-3 md:px-4 md:pb-4">
         <p className="text-xs text-muted-foreground">
           123件のいいね · 45件のコメント
         </p>
