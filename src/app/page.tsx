@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Header } from '@/components/Header';
+import { ImageUploader } from '@/components/ImageUploader';
 import { ImageData, ViewMode } from '@/types';
 
 export default function Home() {
@@ -17,14 +18,7 @@ export default function Home() {
           <div className="space-y-6">
             <div className="rounded-lg border bg-card p-6">
               <h2 className="mb-4 text-xl font-semibold">画像をアップロード</h2>
-              <div className="flex h-64 items-center justify-center rounded-lg border-2 border-dashed border-muted-foreground/25 bg-muted/50">
-                <p className="text-muted-foreground">
-                  画像アップローダー（次のフェーズで実装）
-                </p>
-              </div>
-              <p className="mt-4 text-sm text-muted-foreground">
-                最大5枚まで、1枚あたり10MBまで（JPEG, PNG, WebP）
-              </p>
+              <ImageUploader images={images} onImagesChange={setImages} />
             </div>
 
             {/* コントロールパネル */}
